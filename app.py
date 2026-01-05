@@ -63,7 +63,7 @@ st.markdown("""
 
 .hero-sub {
     font-size: 18px;
-    color: #e0e7ff;
+    color: #FFD700;
     margin-top: 12px;
 }
 
@@ -77,7 +77,7 @@ div[data-baseweb="select"] > div, input {
 
 label {
     font-size: 12px !important;
-    color: #c7d2fe !important;
+    color: #FAFA33 !important;
     text-transform: uppercase;
 }
 
@@ -86,7 +86,7 @@ label {
     width: 360px;
     display: block;
     margin: auto;
-    background: linear-gradient(135deg, #00E5FF, #4F46E5);
+    background: linear-gradient(135deg, #00E5FF, #FAFA33);
     color: #020617;
     font-size: 20px;
     font-weight: 900;
@@ -140,27 +140,96 @@ st.markdown("""
 # INPUTS
 # =========================================================
 col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
-    job_tit = st.selectbox("Job Title", [
-        'AI Research Scientist','AI Software Engineer','AI Specialist',
-        'NLP Engineer','AI Consultant','AI Architect',
-        'Principal Data Scientist','Data Analyst',
-        'Machine Learning Engineer','Data Engineer'
-    ])
-    exp_lvl = st.selectbox("Experience Level", ['EN','MI','SE','EX'])
-    emp_type = st.selectbox("Employment Type", ['FT','CT','PT','FL'])
-    year_exp = st.selectbox("Years of Experience", list(range(0, 21)))
-    industry = st.selectbox("Industry Domain", ['Technology','Finance','Healthcare','Education','Consulting'])
-    remote_ratio = st.selectbox("Remote Ratio (%)", [0, 50, 100])
+    job_tit = st.selectbox(
+        "Job Title",
+        [
+            'AI Research Scientist','AI Software Engineer','AI Specialist',
+            'NLP Engineer','AI Consultant','AI Architect',
+            'Principal Data Scientist','Data Analyst',
+            'Machine Learning Engineer','Data Engineer'
+        ],
+        help="Select the primary job role you are targeting."
+    )
+
+    exp_lvl = st.selectbox(
+        "Experience Level",
+        ['EN','MI','SE','EX'],
+        help="EN = Entry, MI = Mid, SE = Senior, EX = Expert"
+    )
+
+    emp_type = st.selectbox(
+        "Employment Type",
+        ['FT','CT','PT','FL'],
+        help="FT = Full-Time, CT = Contract, PT = Part-Time, FL = Freelance"
+    )
+
+    year_exp = st.selectbox(
+        "Years of Experience",
+        list(range(0, 21)),
+        help="Total professional experience in relevant roles."
+    )
+
+    industry = st.selectbox(
+        "Industry Domain",
+        ['Automotive', 'Media', 'Education', 'Consulting', 'Healthcare',
+       'Gaming', 'Government', 'Telecommunications', 'Manufacturing',
+       'Energy', 'Technology', 'Real Estate', 'Finance', 'Transportation',
+       'Retail'],
+        help="Industry sector where the company operates."
+    )
+
+    remote_ratio = st.selectbox(
+        "Remote Ratio (%)",
+        [0, 50, 100],
+        help="0 = Onsite, 50 = Hybrid, 100 = Fully Remote"
+    )
 
 with col2:
-    cmp_loc = st.selectbox("Company Location", ['India','United States','United Kingdom','Germany','Canada'])
-    cmp_size = st.selectbox("Company Size", ['S','M','L'])
-    emp_residency = st.selectbox("Employee Residence", ['India','United States','United Kingdom','Germany','Canada'])
-    edu_required = st.selectbox("Education Level", ['Bachelor','Master','PhD'])
-    job_descrp_len = st.number_input("Job Description Length", 50, 5000, 1500, step=50)
-    benfit_score = st.number_input("Benefits Score", 0.0, 10.0, 7.5, step=0.1)
+    cmp_loc = st.selectbox(
+        "Company Location",
+        ['China', 'Canada', 'Switzerland', 'India', 'France', 'Germany',
+       'United Kingdom', 'Singapore', 'Austria', 'Sweden', 'South Korea',
+       'Norway', 'Netherlands', 'United States', 'Israel', 'Australia',
+       'Ireland', 'Denmark', 'Finland', 'Japan'],
+        help="Country where the employer is officially based."
+    )
+
+    cmp_size = st.selectbox(
+        "Company Size",
+        ['S','M','L'],
+        help="S = Small (<50), M = Medium (50–250), L = Large (>250 employees)"
+    )
+
+    emp_residency = st.selectbox(
+        "Employee Residence",
+        ['China', 'Canada', 'Switzerland', 'India', 'France', 'Germany',
+       'United Kingdom', 'Singapore', 'Austria', 'Sweden', 'South Korea',
+       'Norway', 'Netherlands', 'United States', 'Israel', 'Australia',
+       'Ireland', 'Denmark', 'Finland', 'Japan'],
+        help="Country where the employee currently resides."
+    )
+
+    edu_required = st.selectbox(
+        "Education Level",
+        'Bachelor', 'Master', 'Associate', 'PhD',
+        help="Highest educational qualification required for the role."
+    )
+
+    job_descrp_len = st.number_input(
+        "Job Description Length",
+        50, 5000, 1500, step=50,
+        help="Approximate number of characters in the job description."
+    )
+
+    benfit_score = st.number_input(
+        "Benefits Score",
+        0.0, 10.0, 7.5, step=0.1,
+        help="Overall benefits rating (bonuses, insurance, perks, stock options)."
+    )
+
 
 st.markdown("<br><br>", unsafe_allow_html=True)
 
