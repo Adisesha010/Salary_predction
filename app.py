@@ -140,10 +140,9 @@ st.markdown("""
 # INPUTS
 # =========================================================
 col1, col2 = st.columns(2)
-col1, col2 = st.columns(2)
 
 with col1:
-    job_tit = st.selectbox(
+    job_title = st.selectbox(
         "Job Title",
         [
             'AI Research Scientist','AI Software Engineer','AI Specialist',
@@ -151,97 +150,92 @@ with col1:
             'Principal Data Scientist','Data Analyst',
             'Machine Learning Engineer','Data Engineer'
         ],
-        help="Select the primary job role you are targeting."
+        help="Primary role used for salary benchmarking."
     )
 
-    exp_lvl = st.selectbox(
+    experience_level = st.selectbox(
         "Experience Level",
         ['EN','MI','SE','EX'],
-        help="EN = Entry, MI = Mid, SE = Senior, EX = Expert"
+        help="EN=Entry, MI=Mid, SE=Senior, EX=Expert"
     )
 
-    emp_type = st.selectbox(
+    employment_type = st.selectbox(
         "Employment Type",
         ['FT','CT','PT','FL'],
-        help="FT = Full-Time, CT = Contract, PT = Part-Time, FL = Freelance"
+        help="FT=Full-Time, CT=Contract, PT=Part-Time, FL=Freelance"
     )
 
-    year_exp = st.selectbox(
+    years_experience = st.selectbox(
         "Years of Experience",
         list(range(0, 21)),
-        help="Total professional experience in relevant roles."
+        help="Total relevant professional experience."
     )
 
     industry = st.selectbox(
         "Industry Domain",
-        ['Automotive', 'Media', 'Education', 'Consulting', 'Healthcare',
-       'Gaming', 'Government', 'Telecommunications', 'Manufacturing',
-       'Energy', 'Technology', 'Real Estate', 'Finance', 'Transportation',
-       'Retail'],
-        help="Industry sector where the company operates."
+        ['Automotive','Media','Education','Consulting','Healthcare','Gaming',
+         'Government','Telecommunications','Manufacturing','Energy',
+         'Technology','Real Estate','Finance','Transportation','Retail'],
+        help="Industry sector of the company."
     )
 
     remote_ratio = st.selectbox(
         "Remote Ratio (%)",
         [0, 50, 100],
-        help="0 = Onsite, 50 = Hybrid, 100 = Fully Remote"
+        help="0=Onsite, 50=Hybrid, 100=Fully Remote"
     )
 
 with col2:
-    cmp_loc = st.selectbox(
+    company_location = st.selectbox(
         "Company Location",
-        ['China', 'Canada', 'Switzerland', 'India', 'France', 'Germany',
-       'United Kingdom', 'Singapore', 'Austria', 'Sweden', 'South Korea',
-       'Norway', 'Netherlands', 'United States', 'Israel', 'Australia',
-       'Ireland', 'Denmark', 'Finland', 'Japan'],
-        help="Country where the employer is officially based."
+        ['China','Canada','Switzerland','India','France','Germany',
+         'United Kingdom','Singapore','Austria','Sweden','South Korea',
+         'Norway','Netherlands','United States','Israel','Australia',
+         'Ireland','Denmark','Finland','Japan'],
+        help="Country where the employer is based."
     )
 
-    cmp_size = st.selectbox(
+    company_size = st.selectbox(
         "Company Size",
         ['S','M','L'],
-        help="S = Small (<50), M = Medium (50–250), L = Large (>250 employees)"
+        help="S<50, M=50–250, L>250 employees"
     )
 
-    emp_residency = st.selectbox(
+    employee_residence = st.selectbox(
         "Employee Residence",
-        ['China', 'Canada', 'Switzerland', 'India', 'France', 'Germany',
-       'United Kingdom', 'Singapore', 'Austria', 'Sweden', 'South Korea',
-       'Norway', 'Netherlands', 'United States', 'Israel', 'Australia',
-       'Ireland', 'Denmark', 'Finland', 'Japan'],
-        help="Country where the employee currently resides."
+        ['China','Canada','Switzerland','India','France','Germany',
+         'United Kingdom','Singapore','Austria','Sweden','South Korea',
+         'Norway','Netherlands','United States','Israel','Australia',
+         'Ireland','Denmark','Finland','Japan'],
+        help="Country where the employee resides."
     )
 
-    edu_required = st.selectbox(
+    education_required = st.selectbox(
         "Education Level",
-        ['Bachelor', 'Master', 'Associate', 'PhD'],
-        help="Highest educational qualification required for the role."
+        ['Associate','Bachelor','Master','PhD'],
+        help="Highest educational qualification required."
     )
 
-    job_descrp_len = st.number_input(
+    job_description_length = st.number_input(
         "Job Description Length",
         50, 5000, 1500, step=50,
-        help="Approximate number of characters in the job description."
+        help="Approximate character length of job description."
     )
 
-    benfit_score = st.number_input(
+    benefits_score = st.number_input(
         "Benefits Score",
         0.0, 10.0, 7.5, step=0.1,
-        help="Overall benefits rating (bonuses, insurance, perks, stock options)."
+        help="Overall benefits & perks rating."
     )
 
-
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # =========================================================
-# BUTTON
+# PREDICT BUTTON
 # =========================================================
 left, center, right = st.columns([4,4,4])
 with center:
     predict_btn = st.button("Calculate Salary")
-
-# scroll anchor
-st.markdown("<div id='salary-output'></div>", unsafe_allow_html=True)
 
 # =========================================================
 # OUTPUT
@@ -250,39 +244,41 @@ if predict_btn and model:
 
     st.markdown("""
     <script>
-    document.getElementById("salary-output").scrollIntoView({behavior: "smooth"});
+    document.getElementById("salary-output").scrollIntoView({behavior:"smooth"});
     </script>
     """, unsafe_allow_html=True)
 
     input_df = pd.DataFrame([{
-        "job_title": job_tit,
-        "experience_level": exp_lvl,
-        "employment_type": emp_type,
-        "company_location": cmp_loc,
-        "company_size": cmp_size,
-        "employee_residence": emp_residency,
+        "job_title": job_title,
+        "experience_level": experience_level,
+        "employment_type": employment_type,
+        "company_location": company_location,
+        "company_size": company_size,
+        "employee_residence": employee_residence,
         "remote_ratio": remote_ratio,
-        "education_required": edu_required,
-        "years_experience": year_exp,
+        "education_required": education_required,
+        "years_experience": years_experience,
         "industry": industry,
-        "job_description_length": job_descrp_len,
-        "benefits_score": benfit_score
+        "job_description_length": job_description_length,
+        "benefits_score": benefits_score
     }])
+
+    # 🔐 Align features with trained model (CRITICAL)
+    input_df = input_df.reindex(columns=model.feature_names_in_)
 
     final_salary = model.predict(input_df)[0]
 
     container = st.empty()
     steps = 40
     value = 0
-    step = final_salary / steps
 
     for _ in range(steps):
-        value += step
+        value += final_salary / steps
         container.markdown(f"""
         <div class="result-box">
             <h3>Estimated Compensation</h3>
             <div class="salary-text">${int(value):,}</div>
-            <p style="opacity:0.75;">Processing global salary intelligence…</p>
+            <p style="opacity:0.7;">Analyzing global salary intelligence…</p>
         </div>
         """, unsafe_allow_html=True)
         time.sleep(0.06)
