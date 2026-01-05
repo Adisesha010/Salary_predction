@@ -214,7 +214,7 @@ with col2:
 
     edu_required = st.selectbox(
         "Education Level",
-        'Bachelor', 'Master', 'Associate', 'PhD',
+        ['Bachelor', 'Master', 'Associate', 'PhD'],
         help="Highest educational qualification required for the role."
     )
 
